@@ -1,5 +1,6 @@
+import FungibleTokenMintable from "./utility/FungibleTokenMintable.cdc"
 import FungibleToken from "./utility/FungibleToken.cdc"
-
+import MerkleProof from "./MerkleProoof.cdc"
 import Bytes32 from "./Bytes32.cdc"
 
 /// Airdrop contract.
@@ -22,14 +23,14 @@ pub contract Airdrop {
 		// It should be bytes32, so we have to check that its length is 32.
 		let merkleRoot: Bytes32
 		// Resource that will allow to mint the fungible tokens.
-		let minterResource: @FungibleToken.Minter?
+		let minterResource: @FungibleTokenMintable.Minter?
         // Or we can use the provider capability.
 		let fundDistributor: Capability<&{FungibleToken.Provider}>? 
 
 		init(
 			dropSupportedType: Type, 
 			merkleRoot: Bytes32, 
-			minterResource: @FungibleToken.Minter?, 
+			minterResource: @FungibleTokenMintable.Minter?, 
 			fundDistributor: Capability<&{FungibleToken.Provider}>?
 		) {
 			// TODO: Add check that value should not be zero

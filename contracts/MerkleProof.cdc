@@ -1,5 +1,4 @@
 import Bytes32 from "./Bytes32.cdc";
-import Packing from "./Packing.cdc";
 
 pub contract MerkleProof {
 	
@@ -15,15 +14,15 @@ pub contract MerkleProof {
         let computedHash: Bytes32  = leaf;
 
         for proofElement in proof {
-            if computedHash <= proofElement {
+            if computedHash.lt(proofElement) || computedHash.eq(proofElement) {
                 // Hash(current computed hash + current element of the proof)
-                computedHash = HashAlgorithm.SHA3_256.hash(computedHash.concat(proofElement.value));
+                computedHash = HashAlgorithm.SHA3_256.hash(computedHash.concat(proofElement));
             } else {
                 // Hash(current element of the proof + current computed hash)
-                computedHash = HashAlgorithm.SHA3_256.hash(proofElement.concat(computedHash.value));
+                computedHash = HashAlgorithm.SHA3_256.hash(proofElement.concat(computedHash));
             }
         }
         // Check if the computed hash (root) is equal to the provided root
-        return computedHash == root;
+        return computedHash.eq(root);
     }
 }

@@ -13,11 +13,11 @@ pub struct Bytes32 {
         return String.encodeHex(self.value)
     }
 
-    pub fun concat(target: Bytes32) : [UInt8] {
+    pub fun concat(_ target: Bytes32) : [UInt8] {
         return self.value.concat(target.value)
     }
 
-    pub fun gt(target: Bytes32) : Bool {
+    pub fun gt(_ target: Bytes32) : Bool {
         for index, byte in self.value {
             if byte > target.value[index] {
                 return true
@@ -28,7 +28,7 @@ pub struct Bytes32 {
         return false
     }
 
-    pub fun lt(target: Bytes32) : Bool {
+    pub fun lt(_ target: Bytes32) : Bool {
         for index, byte in self.value {
             if byte < target.value[index] {
                 return true
@@ -39,7 +39,7 @@ pub struct Bytes32 {
         return false
     }
 
-   pub fun eq(target: Bytes32) : Bool {
+   pub fun eq(_ target: Bytes32) : Bool {
         return self.toString() == target.toString()
     }
 
